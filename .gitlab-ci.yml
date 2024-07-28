@@ -29,11 +29,12 @@ sync_gitlab_to_github:
   script:
     - python --version
     - git fetch --all
-    - git checkout -b temp_branch  # Create a temporary branch
-    - git branch -D main || true  # Delete local main if it exists
-    - git checkout -b main origin/main  # Create main based on GitLab's main
+    - git checkout -b temp_branch
+    - git branch -D main || true
+    - git checkout -b main origin/main
     - echo "Pulling changes from GitHub and attempting to rebase..."
-    - if git pull --rebase github main; then
+    - |
+      if git pull --rebase github main; then
         echo "Rebase successful, pushing to GitHub..."
         git push -f github main
       else
